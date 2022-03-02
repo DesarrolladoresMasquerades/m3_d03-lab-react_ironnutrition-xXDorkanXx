@@ -1,4 +1,4 @@
-import { Card, Col, Divider, Button } from "antd";
+import { Card, Col, Button } from "antd";
 
 export default function FoodBox(props){
     return (

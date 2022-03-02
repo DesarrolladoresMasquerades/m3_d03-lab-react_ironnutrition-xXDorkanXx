@@ -1,4 +1,4 @@
-import { Card, Row, Col, Divider, Input, Button } from "antd";
+import { Card, Divider, Button } from "antd";
 import './App.css';
 import foods from "./foods.json";
 import { useState } from 'react';
