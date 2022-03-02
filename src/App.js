@@ -19,35 +19,47 @@ function App() {
     const filteredFoods = foodsData.filter((food)=>{
 
       if(string === "") return true;
-      else return food.name.toLocaleLowerCase().includes(string.toLowerCase());
+      else return food.name.toLowerCase().includes(string.toLowerCase());
     })
 
     setAllFoods(filteredFoods);
   }
 
   function deleteFood(foodToBeDelete){
-    const allFoodsCopy = allFoods.slice();
-    delete allFoodsCopy[allFoodsCopy.indexOf(foodToBeDelete)];
+    const newFoodData = foodsData.filter((food)=>food !== foodToBeDelete)
+    setFoodsData(newFoodData);
+    setAllFoods(newFoodData);
+  }
 
-    setFoodsData(allFoodsCopy);
-    setAllFoods(allFoodsCopy);
+  function toggleForm(){
+    document.getElementById("formSection").classList.toggle("hidden");
+    document.getElementById("openFormBtn").classList.toggle("hidden");
   }
 
   return (
     <div className="App">
-      <h1>Add Food Entry</h1>
-      <AddFoodForm addFood={addFood}/>
       <br/>
-      <h1>Search</h1>
+      <button id="openFormBtn" onClick={()=>toggleForm()}>Add New Food</button>
+      <section id="formSection" className="hidden">
+        <Divider>Add Food Entry</Divider>
+        <AddFoodForm addFood={addFood}/>
+        <Button onClick={()=>toggleForm()}>Hide Form</Button>
+        <br/>
+      </section>
+      <Divider>Search</Divider>
       <Search filterFoods={filterFoods}/>
       <br/>
-      <h1>Food List</h1>
+      <Divider>Food List</Divider>
       <section className="foods-section">
-        {allFoods.map((food)=>{
+        { allFoods.length ? allFoods.map((food)=>{
           return (
-            <FoodBox food={food} deleteFood={deleteFood}/>
+            <FoodBox foodsData={foodsData} food={food} deleteFood={deleteFood}/>
           )
-        })}
+        }): (
+          <Card title="Oops! There is no more content to show." style={{ width: 400, height: 300, margin: 10 }}>
+            <img src="https://cdn3.iconfinder.com/data/icons/block/32/block-512.png" alt="No more content" height={180} />
+          </Card>
+            )}
       </section>
     </div>
   );
