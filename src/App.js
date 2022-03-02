@@ -53,7 +53,7 @@ function App() {
       <section className="foods-section">
         { allFoods.length ? allFoods.map((food)=>{
           return (
-            <FoodBox foodsData={foodsData} food={food} deleteFood={deleteFood}/>
+            <FoodBox food={food} deleteFood={deleteFood}/>
           )
         }): (
           <Card title="Oops! There is no more content to show." style={{ width: 400, height: 300, margin: 10 }}>
